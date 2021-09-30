@@ -1,3 +1,3 @@
 # Server
 
-CryptoChimp server
+CryptoChimp server, built with Node.js
