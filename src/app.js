@@ -13,11 +13,17 @@ require('./config/passport')(passport);
 
 const app = express();
 
-connectToDatabase();
+const { CLIENT_HOME } = process.env;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: CLIENT_HOME,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  }),
+);
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -29,6 +35,8 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+connectToDatabase();
 
 app.use('/', homeRoutes);
 app.use('/auth', authRoutes);

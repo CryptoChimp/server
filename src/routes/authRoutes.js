@@ -9,13 +9,13 @@ router.get(
   '/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
   (req, res) => {
-    res.redirect('/');
+    res.redirect(`${process.env.CLIENT_HOME}/home`);
   },
 );
 
 router.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('/');
+  res.redirect(process.env.CLIENT_HOME);
 });
 
 module.exports = router;
