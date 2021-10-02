@@ -1,5 +1,5 @@
 {
-  "name": "cryptochimp",
+  "name": "server",
   "version": "1.0.0",
   "description": "CryptoChimp server",
   "main": "src/server.js",
