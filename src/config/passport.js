@@ -13,6 +13,7 @@ module.exports = (passport) => {
         const newUser = {
           googleId: profile.id,
           displayName: profile.displayName,
+          avatar: profile.photos[0].value,
           cash: 10000,
         };
 
