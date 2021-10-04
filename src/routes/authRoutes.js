@@ -9,7 +9,7 @@ router.get(
   '/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
   (req, res) => {
-    res.redirect(`${process.env.CLIENT_HOME}/home`);
+    res.redirect(`${process.env.CLIENT_HOME}/browse`);
   },
 );
 
