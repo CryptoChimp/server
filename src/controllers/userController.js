@@ -1,5 +1,5 @@
 const getCurrentUser = (req, res) => {
-  res.send(req.user);
+  res.send('hello');
 };
 
 module.exports = {

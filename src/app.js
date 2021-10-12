@@ -6,7 +6,7 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
 
-const homeRoutes = require('./routes/homeRoutes');
+const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes');
 const connectToDatabase = require('./config/db');
 require('./config/passport')(passport);
@@ -38,7 +38,7 @@ app.use(passport.session());
 
 connectToDatabase();
 
-app.use('/', homeRoutes);
+app.use('/user', userRoutes);
 app.use('/auth', authRoutes);
 
 module.exports = app;

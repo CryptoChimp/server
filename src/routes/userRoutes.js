@@ -1,9 +1,9 @@
 const express = require('express');
-const homeController = require('../controllers/homeController');
+const userController = require('../controllers/userController');
 const authCheck = require('../middleware/authCheck');
 
 const router = express.Router();
 
-router.get('/', authCheck, homeController.getCurrentUser);
+router.get('/', authCheck, userController.getCurrentUser);
 
 module.exports = router;
