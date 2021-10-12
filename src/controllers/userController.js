@@ -8,28 +8,33 @@ const buyCoin = (req, res) => {
   const { symbol, quantity, price } = req.body;
   const { googleId } = req.user;
 
-  let errorMessage = null;
+  let message;
+  let status;
 
   const totalPrice = price * quantity;
   const newCash = req.user.cash - totalPrice;
   const userOwnsCoin = req.user.wallet.some((data) => data.symbol === symbol);
 
   if (!price) {
-    errorMessage = 'Symbol not found';
+    message = 'Symbol not found';
+    status = 'error';
   } else if (newCash < 0) {
-    errorMessage = 'Not enough cash';
+    message = 'Not enough cash';
+    status = 'error';
   } else if (userOwnsCoin) {
     updateCoin(googleId, symbol, quantity, totalPrice);
     updateCash(googleId, newCash);
-    errorMessage = 'Bought existing coin';
+    message = 'Bought existing coin';
+    status = 'success';
   } else {
     addCoin(googleId, symbol, quantity, totalPrice);
     updateCash(googleId, newCash);
-    errorMessage = 'Bought coin';
+    message = 'Bought coin';
+    status = 'success';
   }
 
-  console.log(errorMessage);
-  res.send({ error_message: errorMessage });
+  console.log(message);
+  res.send({ message, status });
 };
 
 module.exports = {
