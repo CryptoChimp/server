@@ -22,6 +22,21 @@ const addCoin = (userId, coinSymbol, coinQuantity, price) => {
   );
 };
 
+const removeCoin = (userId, coinSymbol) => {
+  User.updateOne(
+    { googleId: userId },
+    {
+      $pull: {
+        wallet: { symbol: coinSymbol },
+      },
+    },
+    { safe: true },
+    (err) => {
+      console.log(err);
+    },
+  );
+};
+
 const updateCoin = (userId, coinSymbol, coinQuantity, price) => {
   User.updateOne(
     { 'wallet.symbol': coinSymbol, googleId: userId },
@@ -51,4 +66,5 @@ module.exports = {
   updateCash,
   addCoin,
   updateCoin,
+  removeCoin,
 };

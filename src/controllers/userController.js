@@ -1,4 +1,9 @@
-const { updateCash, addCoin, updateCoin } = require('../helpers/transaction');
+const {
+  updateCash,
+  addCoin,
+  updateCoin,
+  removeCoin,
+} = require('../helpers/transaction');
 
 const getCurrentUser = (req, res) => {
   res.send(req.user);
@@ -39,7 +44,27 @@ const buyCoin = (req, res) => {
   res.send({ message, status });
 };
 
+const sellCoin = (req, res) => {
+  const { symbol, price } = req.body;
+  const { quantity } = req.user.wallet.find((data) => data.symbol === symbol);
+  const { googleId } = req.user;
+
+  console.log(req.body);
+
+  const totalPrice = price * quantity;
+  const newCash = req.user.cash + totalPrice;
+
+  removeCoin(googleId, symbol);
+  updateCash(googleId, newCash);
+
+  const response = { message: 'Sold coins', status: 'success' };
+
+  console.log(response.message);
+  res.send(response);
+};
+
 module.exports = {
   getCurrentUser,
   buyCoin,
+  sellCoin,
 };
