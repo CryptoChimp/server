@@ -8,6 +8,8 @@ const buyCoin = (req, res) => {
   const { symbol, quantity, price } = req.body;
   const { googleId } = req.user;
 
+  console.log(req.body);
+
   let message;
   let status;
 
