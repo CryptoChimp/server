@@ -31,12 +31,12 @@ const buyCoin = (req, res) => {
   } else if (userOwnsCoin) {
     updateCoin(googleId, symbol, quantity, totalPrice);
     updateCash(googleId, newCash);
-    message = 'Bought existing coin';
+    message = `Bought ${quantity} ${symbol}`;
     status = 'success';
   } else {
     addCoin(googleId, symbol, quantity, totalPrice);
     updateCash(googleId, newCash);
-    message = 'Bought coin';
+    message = `Bought ${quantity} ${symbol}`;
     status = 'success';
   }
 
@@ -57,7 +57,7 @@ const sellCoin = (req, res) => {
   removeCoin(googleId, symbol);
   updateCash(googleId, newCash);
 
-  const response = { message: 'Sold coins', status: 'success' };
+  const response = { message: `Sold ${symbol}`, status: 'success' };
 
   console.log(response.message);
   res.send(response);
