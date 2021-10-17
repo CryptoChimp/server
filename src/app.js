@@ -1,10 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const session = require('express-session');
 const passport = require('passport');
-const mongoose = require('mongoose');
-const MongoStore = require('connect-mongo')(session);
+const session = require('cookie-session');
 
 const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes');
@@ -26,13 +24,17 @@ app.use(
 );
 app.use(
   session({
+    name: 'session',
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    cookie: {
+      httpOnly: true,
+      secure: false,
+      maxAge: 24 * 60 * 60 * 1000,
+    },
   }),
 );
-
 app.use(passport.initialize());
 app.use(passport.session());
 
